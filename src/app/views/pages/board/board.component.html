@@ -1,0 +1,26 @@
+<div class="flex flex-col items-center justify-between mt-2">
+  @for (row of [0, 1, 2]; track row) {
+    <div class="flex justify-center items-center mx-1">
+      @for (cell of [0, 1, 2]; track cell) {
+        @if (simplifiedBoard()[row][cell]) {
+          <div class="w-72 h-72 flex items-center justify-center m-1 bg-white border border-gray-400 rounded-lg"
+               [ngClass]="{
+          'bg-opacity-30': (row + cell)%2 === 0,
+          'bg-opacity-50': (row + cell)%2 === 1
+        }"
+          >
+            <span class="text-8xl">{{ simplifiedBoard()[row][cell] }}</span>
+          </div>
+        } @else {
+          <app-simple-grid [dial]="getDial(row, cell)"
+                           [dialRowIdx]="row"
+                           [dialCellIdx]="cell"
+                           (whenCellClicked)="onCellClicked($event)"
+          ></app-simple-grid>
+        }
+
+      }
+    </div>
+  }
+</div>
+
