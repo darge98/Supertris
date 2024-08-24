@@ -1,27 +1,52 @@
 # Supertris
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
+## Game Structure
 
-## Development server
+The game is played on a large 3x3 grid, called the **board**, where each cell of the board is itself a 3x3 grid, called a **dial**.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Board**: The outer 3x3 grid
+- **Dial**: A single cell of the board, representing a 3x3 grid
 
-## Code scaffolding
+## Objective of the Game
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The goal is to achieve a three-in-a-row on the board. To do this, you need to win the individual dials.
 
-## Build
+- **Winning a Dial**: Achieve three-in-a-row within a 3x3 grid (dial).
+- **Winning the Board**: Obtain three-in-a-row on the board by using the won dials.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## How to Play
 
-## Running unit tests
+The game is turn-based between two players, **X** and **O**.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. **Starting the Game**
+  - Player **X** begins by choosing any cell of the board to place their mark.
 
-## Running end-to-end tests
+2. **Subsequent Turns**
+  - After Player **X** makes their move, Player **O** must play in the board cell that corresponds to the dial cell chosen by **X**.
+  - Within that dial cell, Player **O** can place their mark in any available cell of the dial.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+3. **Rules for Already-Won Dials**
+  - If a dial has already been won by a player, the next player can choose any available cell on the board, without following the dial correspondence rule.
 
-## Further help
+## Example of Gameplay
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. **Turn 1**: Player **X** chooses cell (0,0) of the board and plays in cell (1,0) of the dial.
+
+2. **Turn 2**: Player **O** must now play in cell (1,0) of the board. They play in cell (2,0) of the dial.
+
+3. **Turn 3**: Player **X** plays in cell (2,0) of the board.
+
+4. [...]
+
+5. **Turn 8**: Player **O** must play in cell (2,0) of the board and chooses cell (2,0) of the dial, winning that dial.
+
+6. **Turn 9**: Player **X** must now play in cell (2,0) of the board. 
+Since this dial has already been won by **O**, **X** can play in any available cell on the board.
+
+## Additional Notes
+
+- **Turn-Based**: Players alternate turns.
+- **Marks**: Players use X and O for their moves.
+- **Strategy**: Carefully plan your moves as you need to consider both the board and the dials simultaneously.
+
+Have fun and good luck!
