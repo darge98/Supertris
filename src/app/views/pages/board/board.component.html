@@ -1,0 +1,26 @@
+<!-- Contenitore della griglia -->
+<div class="grid grid-cols-3 grid-rows-3 md:gap-1 mt-2 w-full mx-auto">
+  @for (row of [0, 1, 2]; track row) {
+    @for (cell of [0, 1, 2]; track cell) {
+      @if (simplifiedBoard()[row][cell]) {
+        <div class="w-full h-full flex items-center justify-center bg-[#fbf8f3] border border-gray-300 shadow-sm rounded-lg
+                    bg-opacity-50 transition duration-300 ease-in-out hover:bg-opacity-70"
+             [ngClass]="{
+          'bg-opacity-50': (row + cell) % 2 === 0,
+          'bg-opacity-70': (row + cell) % 2 === 1
+        }">
+          <span class="text-4xl md:text-6xl lg:text-8xl text-gray-800 font-handwritten">
+            {{ simplifiedBoard()[row][cell] }}
+          </span>
+        </div>
+      } @else {
+        <app-simple-grid [dial]="getDial(row, cell)"
+                         [dialRowIdx]="row"
+                         [dialCellIdx]="cell"
+                         [enabled]="isDialEnabled(row, cell)"
+                         (whenCellClicked)="onCellClicked($event)">
+        </app-simple-grid>
+      }
+    }
+  }
+</div>

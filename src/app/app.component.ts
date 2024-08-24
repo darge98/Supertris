@@ -1,13 +1,52 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, DestroyRef, inject, signal} from '@angular/core';
+import {Router, RouterOutlet} from '@angular/router';
+import {EventBusService, EventType} from "./domain/event-bus/event-bus.service";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {InfoModalDialogComponent} from "./views/components/modal-dialog/info-modal-dialog.component";
+import {GameService} from "./domain/game/game.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [RouterOutlet, InfoModalDialogComponent],
+  template: `
+    <div
+      class="min-h-screen bg-[#efefef] flex flex-col items-center justify-center overflow-hidden relative">
+      <router-outlet></router-outlet>
+
+      @if (isModalOpen()) {
+        <div class="modal">
+          <app-modal-dialog [msg]="modalMsg()" [btnMsg]="'Go back to homepage'"
+                            (whenBtnClick)="onModalBtnClick()"></app-modal-dialog>
+        </div>
+      }
+    </div>
+  `,
 })
 export class AppComponent {
-  title = 'supertris';
+
+  readonly #gameService = inject(GameService);
+  readonly #eventBus = inject(EventBusService);
+  readonly #destroy = inject(DestroyRef);
+  readonly #router = inject(Router);
+
+  isModalOpen = signal(false);
+  modalMsg = signal("");
+
+  constructor() {
+    this.#eventBus.listenEvent(EventType.PLAYER_WIN).pipe(
+      takeUntilDestroyed(this.#destroy)
+    ).subscribe(additionalInfo => {
+      this.isModalOpen.set(true);
+      if(additionalInfo) {
+        this.modalMsg.set(`${additionalInfo['winner']} win the game!`);
+      }
+    })
+  }
+
+  onModalBtnClick() {
+    this.isModalOpen.set(false);
+    this.#gameService.reset();
+    this.#router.navigate(['/home']).finally();
+  }
 }
