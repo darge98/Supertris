@@ -1,65 +1,47 @@
-<div
-  class="absolute w-80 h-80 bg-purple-400 rounded-full opacity-30 animate-pulse filter blur-2xl top-10 right-20"></div>
-<div class="absolute w-96 h-96 bg-pink-300 rounded-full opacity-20 filter blur-3xl top-32 left-20"></div>
+<div class="absolute w-80 h-80 bg-[#c49cd9] rounded-full opacity-50 top-10 right-20 filter blur-lg"></div>
+<div class="absolute w-96 h-96 bg-[#c49cd9] rounded-full opacity-30 top-32 left-20 filter blur-lg"></div>
 
 <div class="text-center mb-12 transform transition-transform duration-500">
-  <img src="/assets/logo.png" alt="Game Logo" class="w-40 h-40 mx-auto drop-shadow-xl">
-  <h1 class="text-white text-6xl font-extrabold mt-6 drop-shadow-lg cool-title">SuperTris</h1>
-  <p class="text-white text-xl mt-4 font-light">---</p>
+  <img src="/assets/logo.png" alt="Game Logo" class="w-40 h-40 mx-auto drop-shadow-lg">
+  <h1 class="text-gray-900 text-6xl font-extrabold mt-6 drop-shadow-md"
+      style="font-family: 'Permanent Marker', cursive;">SuperTris</h1>
+  <p class="text-gray-700 text-xl mt-4 font-light">A new way to play Tic Tac Toe!</p>
 </div>
 
-<div class="flex space-x-6">
-  <ng-container *ngTemplateOutlet="default"></ng-container>
-  <!--
-  @switch (mode()) {
-    @case (Mode.OFFLINE) {
-      <app-offline-mode (whenGoBack)="changeMode(Mode.NO_SELECTION)"
-                        (whenStartGame)="startGame($event)"
-      ></app-offline-mode>
-    }
-    @case (Mode.ONLINE) {
-      Case A.
-    }
-    @default {
-      <ng-container *ngTemplateOutlet="default"></ng-container>
-    }
-  }
-  -->
+<div class="flex flex-col md:flex-row space-y-6 md:space-y-0 space-x-0 md:space-x-6 justify-center items-stretch">
+  <ng-container *ngTemplateOutlet="chooseMode"></ng-container>
 </div>
 
-<!-- Footer con collegamenti o crediti -->
-<footer class="text-white text-center mt-12 text-opacity-80">
+<footer class="text-gray-600 text-center mt-12 mb-2">
   <p class="text-sm">Made with ❤️ by KomoBissa DevTeam</p>
 </footer>
 
 <!-- No selection template -->
-<ng-template #default>
-  <div @flyInOut
-       class="bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-6 shadow-lg hover:bg-opacity-20 transition duration-300 transform hover:scale-105">
-    <div class="text-center">
-      <i class="fas fa-globe-americas text-white text-4xl mb-4"></i>
-      <h2 class="text-white text-2xl font-bold">Play Online</h2>
-      <p class="text-white mt-2">Compete with players worldwide!</p>
+<ng-template #chooseMode>
+  <div
+    class="flex-1 min-w-96 bg-white bg-opacity-90 border border-gray-300 shadow-lg rounded-lg p-6 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
+    <div class="flex flex-col text-center h-full">
+      <i class="fas fa-globe-americas text-gray-900 text-4xl mb-4"></i>
+      <h2 class="text-gray-900 text-2xl font-bold" style="font-family: 'Permanent Marker', cursive;">Play Online</h2>
+      <p class="text-gray-600 mt-2">Play against people worldwide!</p>
       <button
-        class="mt-6 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:rotate-3 opacity-50 cursor-not-allowed"
-
-      >
-        Start Now
+        class="mt-3 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:rotate-1 opacity-50 cursor-not-allowed">
+        Play
       </button>
     </div>
   </div>
 
   <div
-    class="bg-white bg-opacity-10 backdrop-blur-md rounded-3xl p-6 shadow-lg hover:bg-opacity-20 transition duration-300 transform hover:scale-105">
-    <div class="text-center">
-      <i class="fas fa-gamepad text-white text-4xl mb-4"></i>
-      <h2 class="text-white text-2xl font-bold">Play Offline</h2>
-      <p class="text-white mt-2">No internet? No problem!</p>
+    class="flex-1 min-w-96 bg-white bg-opacity-90 border border-gray-300 shadow-lg rounded-lg p-6 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
+    <div class="flex flex-col text-center h-full">
+      <i class="fas fa-gamepad text-gray-900 text-4xl mb-4"></i>
+      <h2 class="text-gray-900 text-2xl font-bold" style="font-family: 'Permanent Marker', cursive;">Play Offline</h2>
+      <p class="text-gray-600 mt-2">No Internet? No problem!</p>
       <button
-        class="mt-6 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:rotate-3"
+        class="mt-3 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:rotate-1"
         (click)="startGame('X', 'O', 'offline')"
       >
-        Play Offline
+        Play
       </button>
     </div>
   </div>

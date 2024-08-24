@@ -1,18 +1,19 @@
-<div class="flex flex-col justify-center items-center w-full m-1">
+<div class="flex flex-col justify-center items-center w-full lg:m-1">
   @for (row of [0, 1, 2]; track row) {
     <div class="flex justify-center items-center w-full">
       @for (cell of [0, 1, 2]; track cell) {
-        <div class="w-24 h-24 flex items-center justify-center relative
-                bg-white border border-gray-400 rounded-lg
+        <div class="w-16 md:w-24 h-16 md:h-24 flex items-center justify-center relative
+                bg-[#f0e6d6] border border-gray-500 shadow-md md:rounded-lg
                 transform hover:scale-105 transition duration-300 ease-in-out"
              [ngClass]="{
-          'bg-opacity-30': (dialRowIdx() + dialCellIdx())%2 === 0,
-          'bg-opacity-50': (dialRowIdx() + dialCellIdx())%2 === 1,
-          'cursor-pointer': !dial()[row][cell]
+          'bg-gray-100': (dialRowIdx() + dialCellIdx() + row + cell) % 2 === 0,
+          'bg-gray-300': (dialRowIdx() + dialCellIdx() + row + cell) % 2 === 1,
+          'cursor-pointer': enabled(),
+          'animate-blink': enabled()
         }"
              (click)="onCellClicked(row, cell)"
         >
-          <div class="relative z-10 text-4xl font-bold text-gray-800">
+          <div class="relative z-10 text-4xl font-handwritten text-gray-900">
             {{ dial()[row][cell] }}
           </div>
         </div>
@@ -20,4 +21,3 @@
     </div>
   }
 </div>
-

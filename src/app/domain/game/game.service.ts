@@ -45,6 +45,10 @@ export class GameService {
       this.#eventBus.notifyEvent(EventType.PLAYER_WIN, {winner});
   }
 
+  public nextMoveOnDial() {
+    return this.#gameStore.nextMove();
+  }
+
   private canMakeMove() {
     if (this.#gameStore.mode() === 'offline')
       return true;

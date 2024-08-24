@@ -28,8 +28,15 @@ export class BoardComponent {
     return this.board()[row][cell];
   }
 
-
   onCellClicked($event: { board: { cell: number; row: number }; dial: { cell: number; row: number } }) {
     this.#gameService.makeMove($event.board.row, $event.board.cell, $event.dial.row, $event.dial.cell)
+  }
+
+  isDialEnabled(row: number, cell: number) {
+    const nextMove = this.#gameService.nextMoveOnDial()
+
+    if (nextMove === 'free' || (nextMove[0] === row && nextMove[1] === cell))
+      return true;
+    return false;
   }
 }

@@ -11,10 +11,9 @@ import {GameService} from "./domain/game/game.service";
   imports: [RouterOutlet, InfoModalDialogComponent],
   template: `
     <div
-      class="min-h-screen bg-gradient-to-br from-purple-700 via-pink-600 to-red-400 flex flex-col items-center justify-center overflow-hidden relative">
+      class="min-h-screen bg-[#efefef] flex flex-col items-center justify-center overflow-hidden relative">
       <router-outlet></router-outlet>
 
-      <!-- another.component.html -->
       @if (isModalOpen()) {
         <div class="modal">
           <app-modal-dialog [msg]="modalMsg()" [btnMsg]="'Go back to homepage'"

@@ -16,12 +16,16 @@ export class SimpleGridComponent {
   dial = input.required<SimpleGrid>();
   dialRowIdx = input.required<number>();
   dialCellIdx = input.required<number>();
+  enabled = input.required<boolean>();
   @Output() whenCellClicked = new EventEmitter<{
     board: { cell: number, row: number },
     dial: { cell: number, row: number }
   }>();
 
   onCellClicked(row: number, cell: number) {
+    if (!this.enabled())
+      return;
+
     if (this.dial()[row][cell])
       return;
 

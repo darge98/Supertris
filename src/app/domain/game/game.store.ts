@@ -123,7 +123,8 @@ export const GameStore = signalStore(
           2: initRow(),
         },
         nextTurn: 'X' as 'X',
-        nextMove: 'free' as 'free'}))
+        nextMove: 'free' as 'free'
+      }))
     },
     initGame(id: string, mode: 'offline' | 'online'): void {
       patchState(store, (_) => ({id, mode, initialized: true}));
@@ -142,7 +143,11 @@ export const GameStore = signalStore(
 
         const nextTurn: 'X' | 'O' = state.nextTurn === 'X' ? 'O' : 'X';
 
-        // TODO: Calcolare se la nextMove è free o è vincolata
+        let nextMove: 'free' | [number, number] = [insideGridRow, insideGridCell];
+        const nextDial = state.board[insideGridRow as 0 | 1 | 2][insideGridCell as 0 | 1 | 2];
+        const thereIsAWinner = getGridWinner(nextDial);
+        if (thereIsAWinner)
+          nextMove = 'free';
 
         return {
           board: {
@@ -152,7 +157,8 @@ export const GameStore = signalStore(
               [cellIdx]: cell,
             }
           },
-          nextTurn
+          nextTurn,
+          nextMove
         }
       })
     }
