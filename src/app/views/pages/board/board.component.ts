@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, inject, Signal} from '@angular/core'
 import {GameService} from "../../../domain/game/game.service";
 import {KeyValuePipe, NgClass, NgForOf} from "@angular/common";
 import {SimpleGridComponent} from "./simple-grid/simple-grid.component";
-import {Board} from "../../../domain/game/game.store";
+import {Board} from "../../../domain/game/game.types";
 
 @Component({
   selector: 'app-board',

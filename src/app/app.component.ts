@@ -38,7 +38,9 @@ export class AppComponent {
       takeUntilDestroyed(this.#destroy)
     ).subscribe(additionalInfo => {
       this.isModalOpen.set(true);
-      this.modalMsg.set(`${additionalInfo.winner} win the game!`);
+      if(additionalInfo) {
+        this.modalMsg.set(`${additionalInfo['winner']} win the game!`);
+      }
     })
   }
 

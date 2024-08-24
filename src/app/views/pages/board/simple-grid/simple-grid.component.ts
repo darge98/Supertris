@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, input, Output} from '@angular/core';
-import {SimpleGrid} from "../../../../domain/game/game.store";
 import {NgClass} from "@angular/common";
+import {SimpleGrid} from "../../../../domain/game/game.types";
 
 @Component({
   selector: 'app-simple-grid',
