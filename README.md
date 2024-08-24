@@ -1,5 +1,7 @@
 # Supertris
 
+Hosted [here](https://supertris-b4e10.web.app/)
+
 ## Game Structure
 
 The game is played on a large 3x3 grid, called the **board**, where each cell of the board is itself a 3x3 grid, called a **dial**.
