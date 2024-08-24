@@ -10,7 +10,7 @@ export enum EventType {
 })
 export class EventBusService {
 
-  #eventSubject$ = new Subject<{ eventType: EventType, additionalParams: any }>();
+  #eventSubject$ = new Subject<{ eventType: EventType, additionalParams?: Record<string, unknown> }>();
 
   public listenEvent(type: EventType) {
     return this.#eventSubject$.pipe(
@@ -19,7 +19,7 @@ export class EventBusService {
     )
   }
 
-  notifyEvent(eventType: EventType, additionalParams?: any) {
+  notifyEvent(eventType: EventType, additionalParams?: Record<string, unknown>) {
     this.#eventSubject$.next({eventType, additionalParams});
   }
 }

@@ -24,8 +24,7 @@ export class BoardComponent {
   simplifiedBoard = this.#gameService.simplifiedBoard;
 
   getDial(row: number, cell: number) {
-    // @ts-ignore
-    return this.board()[row][cell];
+    return this.board()[row as 0|1|2][cell as 0|1|2];
   }
 
   onCellClicked($event: { board: { cell: number; row: number }; dial: { cell: number; row: number } }) {

@@ -1,5 +1,6 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
 import {computed} from "@angular/core";
+import {Board, Mode, NextMove, NextTurn, Row, SimpleGrid, SimpleGridCellSign} from "./game.types";
 
 
 const checkLine = (a: SimpleGridCellSign, b: SimpleGridCellSign, c: SimpleGridCellSign): SimpleGridCellSign => {
@@ -35,32 +36,14 @@ const simplifyBoard: (_: Board) => SimpleGrid = (board: Board) => {
   ]
 }
 
-// Types
-export type Board = {
-  0: Row
-  1: Row
-  2: Row
-}
-export type Row = {
-  0: Cell
-  1: Cell
-  2: Cell
-}
-export type Cell = SimpleGrid;
-export type SimpleGridCellSign = 'X' | 'O' | '';
-export type SimpleGrid = [
-  [SimpleGridCellSign, SimpleGridCellSign, SimpleGridCellSign],
-  [SimpleGridCellSign, SimpleGridCellSign, SimpleGridCellSign],
-  [SimpleGridCellSign, SimpleGridCellSign, SimpleGridCellSign]
-];
-export type GameState = {
+export interface GameState {
   id: string;
   initialized: boolean;
-  mode: 'offline' | 'online'
+  mode: Mode
   player1: string;
   player2: string;
-  nextTurn: 'X' | 'O';
-  nextMove: 'free' | [number, number];
+  nextTurn: NextTurn;
+  nextMove: NextMove;
   board: Board;
 };
 
@@ -111,10 +94,10 @@ export const GameStore = signalStore(
   })),
   withMethods((store) => ({
     reset(): void {
-      patchState(store, (_) => ({
+      patchState(store, () => ({
         id: '',
         initialized: false,
-        mode: 'offline' as 'offline',
+        mode: 'offline' as Mode,
         player1: '',
         player2: '',
         board: {
@@ -122,24 +105,24 @@ export const GameStore = signalStore(
           1: initRow(),
           2: initRow(),
         },
-        nextTurn: 'X' as 'X',
-        nextMove: 'free' as 'free'
+        nextTurn: 'X',
+        nextMove: 'free' as NextMove
       }))
     },
     initGame(id: string, mode: 'offline' | 'online'): void {
-      patchState(store, (_) => ({id, mode, initialized: true}));
+      patchState(store, () => ({id, mode, initialized: true}));
     },
     registerPlayer1(player1: string): void {
-      patchState(store, (_) => ({player1: player1}));
+      patchState(store, () => ({player1: player1}));
     },
     registerPlayer2(player2: string): void {
-      patchState(store, (_) => ({player2: player2}));
+      patchState(store, () => ({player2: player2}));
     },
     makeMove(rowIdx: number, cellIdx: number, insideGridRow: number, insideGridCell: number): void {
       patchState(store, (state) => {
         const row = state.board[rowIdx as 0 | 1 | 2];
         const cell = row[cellIdx as 0 | 1 | 2];
-        cell[insideGridRow][insideGridCell] = state.nextTurn
+        cell[insideGridRow][insideGridCell] = state.nextTurn as SimpleGridCellSign;
 
         const nextTurn: 'X' | 'O' = state.nextTurn === 'X' ? 'O' : 'X';
 
