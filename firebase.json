@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/supertris",
+    "public": "dist/supertris/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
