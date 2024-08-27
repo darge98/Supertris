@@ -12,6 +12,11 @@ import {GameService} from "./domain/game/game.service";
   template: `
     <div
       class="min-h-screen bg-[#efefef] flex flex-col items-center justify-center overflow-hidden relative">
+
+      <div class="absolute w-80 h-80 bg-[#c49cd9] rounded-full opacity-50 top-10 right-20 filter blur-lg"></div>
+      <div class="absolute w-96 h-96 bg-[#c49cd9] rounded-full opacity-30 top-32 left-20 filter blur-lg"></div>
+      <div class="absolute w-96 h-96 bg-[#c49cd9] rounded-full opacity-40 bottom-12 right-44 filter blur-lg"></div>
+
       <router-outlet></router-outlet>
 
       @if (isModalOpen()) {
